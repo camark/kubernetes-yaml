@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: nodeapp1
+spec:
+  replicas: 3
+  template:
+    metadata:
+      name: nodeapp1
+      labels:
+        app: nodeapp1
+    spec:
+      containers:
+      - image: camark/nodeapp1
+        name: nodejs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp1
+spec:
+  type: LoadBalancer
+  selector:
+    app: nodeapp1
+  ports:
+  - port: 80
+    targetPort: 8080
